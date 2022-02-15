@@ -9,6 +9,7 @@
     "build:css": "postcss assets/main.css -o assets/main_browser.css"
   },
   "dependencies": {
+    "@mantine/next": "^3.6.7",
     "classnames": "^2.3.1",
     "next": "10.2.3",
     "react": "17.0.2",
