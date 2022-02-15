@@ -6,10 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "build:css": "postcss assets/main.css -o assets/main_browser.css",
-    "test-build": "npm run build && cd .next && npx http-server",
-    "test-build-next": "npm run build && cd .next && npm start",
-    "test-export": "npm run build && npm run export && cd out && npx http-server"
+    "build:css": "postcss assets/main.css -o assets/main_browser.css"
   },
   "dependencies": {
     "classnames": "^2.3.1",

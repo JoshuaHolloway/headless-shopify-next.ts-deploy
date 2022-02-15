@@ -2,6 +2,8 @@ import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import s from './ProductCard.module.css';
+
 // ==============================================
 
 import { Product } from '@common/types/product';
@@ -20,16 +22,18 @@ const ProductCard: FC<Props> = ({ product }) => {
 
   return (
     <Link href={`/product/${product.slug}`}>
-      <a className=''>
-        <div>
-          <h3>
+      <a className={s.root}>
+        <div className={s.productBg}></div>
+        <div className={s.productTag}>
+          <h3 className={s.productTitle}>
             <span>{product.name}</span>
           </h3>
-          <span>$ 14</span>
+          <span className={s.productPrice}>$ {product.price.value}</span>
         </div>
 
         {product.images && (
           <Image
+            className={s.productImage}
             alt={product.name ?? 'Product image'}
             src={product.images[0]?.url ?? placeholder_img}
             height={540}

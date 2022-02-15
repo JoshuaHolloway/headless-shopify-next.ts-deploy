@@ -1,0 +1,77 @@
+.root {
+  @apply relative;
+  border: solid pink 10px;
+  /* background: purple; */
+
+  max-height: 100% !important;
+
+  &:hover {
+    & .productBg:before {
+      transform: scale(0.99);
+    }
+
+    & .productImage {
+      transform: scale(1.1);
+    }
+  }
+
+  /* 1, 7, ... */
+  &:nth-child(6n + 1) .productBg {
+    @apply bg-violet;
+  }
+
+  /* 3, 9, ... */
+  &:nth-child(6n + 3) .productBg {
+    @apply bg-pink;
+  }
+
+  /* 5, 11, ... */
+  &:nth-child(6n + 5) .productBg {
+    @apply bg-blue;
+  }
+
+  /* 6, 12, ... */
+  &:nth-child(6n + 6) .productBg {
+    @apply bg-cyan;
+  }
+}
+
+.productBg {
+  @apply absolute inset-0 z-0;
+  background: #212529;
+
+  &::before {
+    @apply transition-transform block w-full h-full bg-repeat-space;
+    content: '';
+    background-image: url('/product-pattern-bg.svg');
+  }
+}
+
+.productImage {
+  @apply transition-transform;
+}
+
+.productTag {
+  @apply absolute top-0 right-0 z-20;
+
+  & > * {
+    font-size: 2rem;
+    letter-spacing: 0.4px;
+  }
+}
+
+.productTitle {
+  @apply font-bold;
+  line-height: 2.2em;
+
+  & span {
+    @apply py-4 px-6;
+    /* box-decoration-break: clone; */
+  }
+}
+
+.productPrice {
+  background: yellow;
+  @apply pb-4 pt-2 px-6 font-semibold text-sm;
+  letter-spacing: 0.4px;
+}

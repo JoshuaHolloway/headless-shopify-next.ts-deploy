@@ -27,14 +27,11 @@ export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <>
-      JOSH
-      <Grid layout='A'>
-        {products.slice(0, 3).map((product) => (
-          <ProductCard key={product.id} product={product}></ProductCard>
-        ))}
-      </Grid>
-    </>
+    <Grid layout='A'>
+      {products.slice(0, 3).map((product) => (
+        <ProductCard key={product.id} product={product}></ProductCard>
+      ))}
+    </Grid>
   );
 }
 // ==============================================
