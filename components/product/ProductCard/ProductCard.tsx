@@ -23,7 +23,7 @@ const ProductCard: FC<Props> = ({ product }) => {
   console.log('product.images: ', product.images);
 
   return (
-    <Link href={`/product/${product.slug}`}>
+    <Link href={`/products/${product.slug}`}>
       <a className={s.root}>
         <div className={s.productBg}></div>
         <div className={s.productTag}>
