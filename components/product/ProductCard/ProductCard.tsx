@@ -2,6 +2,8 @@ import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { Button } from '@mantine/core';
+
 import s from './ProductCard.module.css';
 
 // ==============================================
@@ -29,6 +31,13 @@ const ProductCard: FC<Props> = ({ product }) => {
             <span>{product.name}</span>
           </h3>
           <span className={s.productPrice}>$ {product.price.value}</span>
+          <Button
+            onClick={() => {
+              alert('TOODO: Wire up buy!');
+            }}
+          >
+            Buy
+          </Button>
         </div>
 
         {product.images && (
