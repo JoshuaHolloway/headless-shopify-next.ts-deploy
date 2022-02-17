@@ -1,31 +1,39 @@
-import { ApiConfig } from '@common/types/api';
 import { getProductQuery } from '@framework/utils';
 
 // ==============================================
 
-import { Product } from '@common/types/product';
+import { ApiConfig, Variables } from '@common/types/api';
+import { Product as ShopifyProduct } from '@common/types/product';
+
+// ==============================================
+
+type FetchType = {
+  productByHandle: ShopifyProduct;
+  // -name of query is productByHandle
+  // -ShopifyProduct is the type of the product returned from server
+};
 
 // ==============================================
 
 const getProduct = async (options: {
   config: ApiConfig;
-  variables: any;
+  variables: Variables;
 }): Promise<any> => {
   const { config, variables } = options;
 
   console.log('get-products.ts -- variables: ', variables);
 
-  const { data } = await config.fetch<{ product: Product }>({
+  const { data } = await config.fetch<FetchType>({
     query: getProductQuery,
     url: config.apiUrl,
     variables,
   });
 
-  // console.log(JSON.stringify(data, null, 2));
+  console.log(JSON.stringify(data.productByHandle, null, 2));
 
   return {
     product: {
-      name: data?.productByHandle?.title,
+      name: 'name', //data?.productByHandle?.title,
       slug: 'my-super-product',
     },
   };

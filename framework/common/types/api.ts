@@ -3,8 +3,12 @@
 export type ApiFetcherOptions = {
   url: string;
   query: string;
-  variables?: any;
+  variables?: Variables;
 };
+
+// ==============================================
+
+export type Variables = { [key: string]: string };
 
 // ==============================================
 
