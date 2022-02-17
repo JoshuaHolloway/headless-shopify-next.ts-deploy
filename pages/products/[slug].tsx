@@ -1,20 +1,27 @@
-import { Layout } from '@components/common';
 import {
   GetStaticPaths,
   GetStaticPropsContext,
   InferGetServerSidePropsType,
 } from 'next';
 
+import { getConfig } from '@framework/api/config';
+import { Layout } from '@components/common';
+import { getProduct, getAllProductsPaths } from '@framework/product';
+
 // ==============================================
 
 // fetch all of the product slugs
 export const getStaticPaths: GetStaticPaths = async () => {
+  const config = getConfig();
+  const { products } = await getAllProductsPaths(config);
+
   return {
-    paths: [
-      { params: { slug: 'black-hat' } },
-      { params: { slug: 't-shirt' } },
-      { params: { slug: 'lightweight-jacket' } },
-    ],
+    paths: products.map((p) => ({ params: { slug: p.slug } })),
+    // paths: [
+    //   { params: { slug: 'black-hat' } },
+    //   { params: { slug: 't-shirt' } },
+    //   { params: { slug: 'lightweight-jacket' } },
+    // ],
     fallback: false,
   };
 };
@@ -25,7 +32,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<{ slug: string }>) => {
-  return { props: { product: { slug: params?.slug } } };
+  const config = getConfig();
+  const { product } = await getProduct(config);
+
+  return { props: { product } };
 };
 
 // ==============================================
@@ -33,7 +43,12 @@ export const getStaticProps = async ({
 export default function ProductSlug({
   product,
 }: InferGetServerSidePropsType<typeof getStaticProps>) {
-  return <div>Products Slug {product.slug}</div>;
+  return (
+    <>
+      <div>Product Name: {product.name}</div>
+      <div>Products Slug {product.slug}</div>
+    </>
+  );
 }
 
 // ==============================================
