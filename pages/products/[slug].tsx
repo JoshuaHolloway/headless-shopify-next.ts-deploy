@@ -48,6 +48,8 @@ export const getStaticProps = async ({
 export default function ProductSlug({
   product,
 }: InferGetServerSidePropsType<typeof getStaticProps>) {
+  console.log(JSON.stringify(product, null, 2));
+
   return (
     <>
       <div>Product Name: {product?.name}</div>
