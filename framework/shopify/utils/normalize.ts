@@ -52,7 +52,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     vendor,
     description,
     path: `/${handle}`,
-    slug: handle.replace(/^\/+|\/+$/g, ''), // remove all slashed from beginning and end
+    slug: handle.replace(/^\/+|\/+$/g, ''),
     images: normalizeProductImages(imageConnection),
     price: normalizeProductPrice(priceRange.minVariantPrice),
     ...rest,

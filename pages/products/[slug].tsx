@@ -45,8 +45,7 @@ export const getStaticProps = async ({
   const config = getConfig();
   const { product } = await getProduct({
     config,
-    // variables: { slug: params?.slug },
-    variables: { slug },
+    variables: { slug: params?.slug },
   });
 
   return { props: { product } };
@@ -59,8 +58,13 @@ export default function ProductSlug({
 }: InferGetServerSidePropsType<typeof getStaticProps>) {
   return (
     <>
-      <div>Product Name: {product.name}</div>
-      <div>Products Slug {product.slug}</div>
+      <div>Product Name: {product?.name}</div>
+      <div>Products Slug: {product?.slug}</div>
+      <div>Products Path: {product?.path}</div>
+      <div>Products Price: {product?.price.value}</div>
+      <div>Currency: {product?.price.currencyCode}</div>
+      <div>Products Description: {product?.description}</div>
+      {JSON.stringify(product, null, 2)}
     </>
   );
 }

@@ -1,9 +1,10 @@
-import { getProductQuery } from '@framework/utils';
+import { getProductQuery, normalizeProduct } from '@framework/utils';
 
 // ==============================================
 
 import { ApiConfig, Variables } from '@common/types/api';
-import { Product as ShopifyProduct } from '@common/types/product';
+import { Product as ShopifyProduct } from '@framework/schema';
+import { Product } from '@common/types/product';
 
 // ==============================================
 
@@ -13,12 +14,16 @@ type FetchType = {
   // -ShopifyProduct is the type of the product returned from server
 };
 
+type ReturnType = {
+  product: Product | null;
+};
+
 // ==============================================
 
 const getProduct = async (options: {
   config: ApiConfig;
   variables: Variables;
-}): Promise<any> => {
+}): Promise<ReturnType> => {
   const { config, variables } = options;
 
   console.log('get-products.ts -- variables: ', variables);
@@ -31,11 +36,14 @@ const getProduct = async (options: {
 
   console.log(JSON.stringify(data.productByHandle, null, 2));
 
+  const { productByHandle } = data;
+
   return {
-    product: {
-      name: 'name', //data?.productByHandle?.title,
-      slug: 'my-super-product',
-    },
+    product: productByHandle ? normalizeProduct(productByHandle) : null,
+    // {
+    // name: 'name', //data?.productByHandle?.title,
+    // slug: 'my-super-product',
+    // },
   };
 };
 

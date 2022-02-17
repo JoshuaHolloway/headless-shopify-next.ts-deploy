@@ -8,7 +8,7 @@ export type ApiFetcherOptions = {
 
 // ==============================================
 
-export type Variables = { [key: string]: string };
+export type Variables = { [key: string]: string | undefined };
 
 // ==============================================
 
