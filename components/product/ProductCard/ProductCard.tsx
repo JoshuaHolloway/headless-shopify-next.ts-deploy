@@ -20,8 +20,6 @@ const placeholder_img = '/product-img-placeholder.svg';
 // ==============================================
 
 const ProductCard: FC<Props> = ({ product }) => {
-  // console.log('product.images: ', product.images);
-
   return (
     <Link href={`/products/${product.slug}`}>
       <a className={s.root}>

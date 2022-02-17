@@ -1,4 +1,9 @@
-import { ImageEdge, MoneyV2, Product as ShopifyProduct } from '../schema';
+import {
+  ImageEdge,
+  MoneyV2,
+  Product as ShopifyProduct,
+  ProductOption,
+} from '../schema';
 
 import { Product } from '@common/types/product';
 
@@ -12,8 +17,6 @@ function normalizeProductImages({ edges }: { edges: Array<ImageEdge> }) {
   // -We forward the remaining parameters
 
   return edges.map(({ node: { originalSrc: url, ...rest } }) => {
-    // console.log('url: ', url);
-
     return {
       url, //: `/images/${url}`,
       ...rest,
@@ -32,6 +35,20 @@ function normalizeProductPrice({ currencyCode, amount }: MoneyV2) {
 
 // ==============================================
 
+const normalizeProductOption = ({
+  id,
+  values,
+  name: displayName,
+}: ProductOption) => {
+  console.log('ID ', id);
+  console.log('NAME ', displayName);
+  console.log('VALUES ', values);
+
+  return {};
+};
+
+// ==============================================
+
 export function normalizeProduct(productNode: ShopifyProduct): Product {
   // -Input product from the backend
   const {
@@ -42,6 +59,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     description,
     images: imageConnection,
     priceRange,
+    options,
     ...rest
   } = productNode;
 
@@ -52,9 +70,14 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     vendor,
     description,
     path: `/${handle}`,
-    slug: handle.replace(/^\/+|\/+$/g, ''),
+    slug: handle.replace(/^\/+|\/+$/g, ''), // remove all slashed from beginning and end
     images: normalizeProductImages(imageConnection),
     price: normalizeProductPrice(priceRange.minVariantPrice),
+    options: options
+      ? options
+          .filter((o) => o.name !== 'Title')
+          .map((o) => normalizeProductOption(o))
+      : [],
     ...rest,
   };
 

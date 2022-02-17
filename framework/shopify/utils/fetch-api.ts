@@ -10,8 +10,6 @@ const fetchApi = async <T>({
   query,
   variables,
 }: ApiFetcherOptions): Promise<FetcherResults<T>> => {
-  console.log('fetch-api.ts -- variables: ', variables);
-
   // Default options are marked with *
   const res = await fetch(url, {
     method: 'POST',

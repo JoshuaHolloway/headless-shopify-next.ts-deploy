@@ -26,15 +26,13 @@ const getProduct = async (options: {
 }): Promise<ReturnType> => {
   const { config, variables } = options;
 
-  console.log('get-products.ts -- variables: ', variables);
-
   const { data } = await config.fetch<FetchType>({
     query: getProductQuery,
     url: config.apiUrl,
     variables,
   });
 
-  console.log(JSON.stringify(data.productByHandle, null, 2));
+  // console.log(JSON.stringify(data.productByHandle, null, 2));
 
   const { productByHandle } = data;
 
