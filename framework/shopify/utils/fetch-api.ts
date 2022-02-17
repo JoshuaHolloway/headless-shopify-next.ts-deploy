@@ -8,17 +8,25 @@ import { FetcherResults, ApiFetcherOptions } from '@common/types/api';
 const fetchApi = async <T>({
   url,
   query,
+  variables,
 }: ApiFetcherOptions): Promise<FetcherResults<T>> => {
+  console.log('fetch-api.ts -- variables: ', variables);
+
   // Default options are marked with *
   const res = await fetch(url, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/graphql',
+      //https://graphql.org/graphql-js/graphql-clients/
+      //'Content-Type': 'application/graphql',
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
       'X-Shopify-Storefront-Access-Token':
         process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
     },
-    //body: JSON.stringify(data) // body data type must match "Content-Type" header
-    body: query,
+    body: JSON.stringify({
+      query,
+      variables,
+    }),
   });
 
   // -errors for graphQl errors

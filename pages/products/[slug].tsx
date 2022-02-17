@@ -15,6 +15,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const config = getConfig();
   const { products } = await getAllProductsPaths(config);
 
+  const paths = products.map((p) => ({ params: { slug: p.slug } }));
+
+  console.log('[slug].tsx -- getStaticPaths() -- paths: ', paths);
+
   return {
     paths: products.map((p) => ({ params: { slug: p.slug } })),
     // paths: [
@@ -31,9 +35,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // provide product specific data to the page
 export const getStaticProps = async ({
   params,
-}: GetStaticPropsContext<{ slug: string }>) => {
+}: GetStaticPropsContext<any>) => {
+  // }: GetStaticPropsContext<{ slug: string }>) => {
+
+  const { slug } = params;
+
+  console.log('[slug].tsx -- getStaticProps() -- slug:', slug);
+
   const config = getConfig();
-  const { product } = await getProduct(config);
+  const { product } = await getProduct({
+    config,
+    // variables: { slug: params?.slug },
+    variables: { slug },
+  });
 
   return { props: { product } };
 };

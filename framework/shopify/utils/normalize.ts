@@ -12,7 +12,7 @@ function normalizeProductImages({ edges }: { edges: Array<ImageEdge> }) {
   // -We forward the remaining parameters
 
   return edges.map(({ node: { originalSrc: url, ...rest } }) => {
-    console.log('url: ', url);
+    // console.log('url: ', url);
 
     return {
       url, //: `/images/${url}`,
